@@ -1,4 +1,4 @@
-import { UserActionType, User, USER_LOGIN, USER_LOGOUT } from "../types/types";
+import { UserActionType, User, USER_LOGIN, USER_LOGOUT } from "../types";
 
 export function logUserIn(user: User): UserActionType {
   return {

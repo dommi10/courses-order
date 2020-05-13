@@ -3,7 +3,7 @@ import {
   UserActionType,
   USER_LOGOUT,
   USER_LOGIN,
-} from "../types/types";
+} from "../types";
 
 const initialState: UserState = {
   user: {},
