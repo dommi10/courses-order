@@ -60,7 +60,7 @@ const LoginForm: React.FC<Props> = ({ onFinish }) => {
         >
           Or
           <br />
-          <a href="/" onClick={(event) => event.preventDefault}>
+          <a href="/signup" onClick={(event) => event.preventDefault}>
             register now !
           </a>
         </div>
