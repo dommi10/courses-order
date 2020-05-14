@@ -1,12 +1,12 @@
 import { ThunkAction } from "redux-thunk";
 
-export const GET_USER_LOGIN: String = "GET_USER_LOGIN";
-export const GET_USER_LOGOUT: String = "GET_USER_LOGOUT";
-export const COURSE_LIST: String = "COURSE_LIST";
-export const SUBSCRIB_COURSE: String = "SUBSCRIB_COURSE";
-export const GET_USER_LOGIN_SUCCESS: String = "GET_USER_LOGIN_SUCCESS";
-export const GET_USER_LOGIN_ERROR: String = "GET_USER_LOGIN_ERROR";
-export const GET_USER_LOGIN_LOADING: String = "GET_GET_USER_LOGIN_LOADING";
+export const GET_USER_LOGIN = "GET_USER_LOGIN";
+export const GET_USER_LOGOUT = "GET_USER_LOGOUT";
+export const COURSE_LIST = "COURSE_LIST";
+export const SUBSCRIB_COURSE = "SUBSCRIB_COURSE";
+export const GET_USER_LOGIN_SUCCESS = "GET_USER_LOGIN_SUCCESS";
+export const GET_USER_LOGIN_ERROR = "GET_USER_LOGIN_ERROR";
+export const GET_USER_LOGIN_LOADING = "GET_GET_USER_LOGIN_LOADING";
 
 export interface User {
   username?: String;
@@ -50,7 +50,7 @@ export interface UserLoginLoading {
   playload?: any;
 }
 
-export interface Logout {
+export interface UserLogout {
   type: typeof GET_USER_LOGOUT;
   playload?: any;
 }
@@ -66,6 +66,7 @@ export interface UserState {
 }
 
 export type UserActionType =
+  | UserLogout
   | UserLoginError
   | UserLoginLoading
   | UserLoginSuccess;

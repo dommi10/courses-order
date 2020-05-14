@@ -1,5 +1,5 @@
 import {
-  Logout,
+  UserLogout,
   User,
   GET_USER_LOGOUT,
   GET_USER_LOGIN_SUCCESS,
@@ -29,7 +29,7 @@ export const logUserIn = (user: User): ThunkResult<void> => {
   };
 };
 
-export const logUserOut = (): Logout => ({
+export const logUserOut = (): UserLogout => ({
   type: GET_USER_LOGOUT,
 });
 

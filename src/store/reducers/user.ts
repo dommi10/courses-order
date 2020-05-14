@@ -13,16 +13,24 @@ const initialState: UserState = {
   isLoading: false,
 };
 
-export default function reducer(state = initialState, action: UserActionType) {
+export default function reducer(
+  state = initialState,
+  action: UserActionType
+): UserState {
   switch (action.type) {
     case GET_USER_LOGOUT:
-      return null;
+      return {
+        ...state,
+        data: {},
+        isLoading: false,
+        hasError: false,
+      };
     case GET_USER_LOGIN_SUCCESS:
       return {
         ...state,
         data: action.playload,
         isLoading: false,
-        error: false,
+        hasError: false,
       };
     case GET_USER_LOGIN_ERROR:
       return {
