@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { configureStore } from "@reduxjs/toolkit";
+import thunkMiddleware from "redux-thunk";
 import { Provider } from "react-redux";
 import { rootReducer } from "./store";
 import App from "./App";
@@ -9,6 +10,7 @@ import * as serviceWorker from "./serviceWorker";
 
 const store = configureStore({
   reducer: rootReducer,
+  middleware: [thunkMiddleware],
 });
 
 ReactDOM.render(

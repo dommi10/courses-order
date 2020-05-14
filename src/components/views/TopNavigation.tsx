@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Menu, Button } from "antd";
 
 interface TopNavigationProps {
-  user: User;
+  user?: User;
 }
 
 const TopNavigation: React.FC<TopNavigationProps> = ({ user }) => (
@@ -33,7 +33,7 @@ const TopNavigation: React.FC<TopNavigationProps> = ({ user }) => (
 
 const mapStateToProps = (state: UserState) => {
   return {
-    user: state.user,
+    user: state.data,
   };
 };
 

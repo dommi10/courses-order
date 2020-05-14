@@ -12,7 +12,7 @@ const PrivateRoute: React.ComponentType<any> = ({
     <Route
       {...rest}
       render={(props) =>
-        user.username ? (
+        user ? (
           <Component {...props} />
         ) : (
           <Redirect
@@ -29,7 +29,7 @@ const PrivateRoute: React.ComponentType<any> = ({
 
 function mapStateToProps(state: UserState) {
   return {
-    user: state.user,
+    user: state.data,
   };
 }
 
