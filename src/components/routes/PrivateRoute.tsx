@@ -1,18 +1,22 @@
 import * as React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { UserState } from "../../store/types";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
+
+interface StateType {
+  user: UserState;
+}
 
 const PrivateRoute: React.ComponentType<any> = ({
-  user,
   component: Component,
   ...rest
 }) => {
+  const { data } = useSelector((state: StateType) => state.user);
   return (
     <Route
       {...rest}
       render={(props) =>
-        user ? (
+        data ? (
           <Component {...props} />
         ) : (
           <Redirect
@@ -27,10 +31,4 @@ const PrivateRoute: React.ComponentType<any> = ({
   );
 };
 
-function mapStateToProps(state: UserState) {
-  return {
-    user: state.data,
-  };
-}
-
-export default connect(mapStateToProps)(PrivateRoute);
+export default PrivateRoute;
