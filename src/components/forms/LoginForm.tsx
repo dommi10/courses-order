@@ -17,9 +17,8 @@ interface ErrorType {
   passwordError?: string;
 }
 
-const LoginForm: React.FC<Props> = ({ onFinish }) => {
+const LoginForm: React.FC<Props> = React.memo(({ onFinish }) => {
   const errors: ErrorType = {};
-
   const [state, setstate] = React.useState<ErrorType>(errors);
 
   return (
@@ -71,6 +70,6 @@ const LoginForm: React.FC<Props> = ({ onFinish }) => {
       </Grid.Column>
     </Grid>
   );
-};
+});
 
 export default LoginForm;
