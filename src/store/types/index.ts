@@ -65,6 +65,10 @@ export interface UserState {
   isLoading: boolean;
 }
 
+export interface StateType {
+  user: UserState;
+}
+
 export type UserActionType =
   | UserLogout
   | UserLoginError
