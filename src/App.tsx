@@ -6,13 +6,11 @@ import PublicRoute from "./components/routes/PublicRoute";
 import LoginPage from "./components/pages/LoginPage";
 import SignUpPage from "./components/pages/SignUpPage";
 import FooterPage from "./components/pages/FooterPage";
-import CopiedPage from "./components/pages/CopiedCode";
 
 function App() {
   return (
     <Router>
       <PublicRoute exact path="/login" component={LoginPage} />
-      <PublicRoute exact path="/copy" component={CopiedPage} />
       <PublicRoute exact path="/signup" component={SignUpPage} />
       <PrivateRoute exact path="/" component={HomePage} />
       <FooterPage />
