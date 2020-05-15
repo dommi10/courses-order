@@ -5,7 +5,6 @@ import thunkMiddleware from "redux-thunk";
 import { Provider } from "react-redux";
 import { rootReducer } from "./store";
 import App from "./App";
-import "antd/dist/antd.min.css";
 import * as serviceWorker from "./serviceWorker";
 
 const store = configureStore({
