@@ -12,15 +12,17 @@
   margin-top: 24px;
 }
 
-.content {
-  padding: 2% 20%;
-  background-color: #fefefe;
-  max-width: 400;
-}
-
 .input .ant-tooltip-inner {
   min-width: 32px;
   min-height: 37px;
+}
+
+.logo {
+  width: 120px;
+  height: 31px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px 28px 16px 0;
+  float: left;
 }
 
 .site-layout-background {
