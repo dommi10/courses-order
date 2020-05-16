@@ -11,7 +11,7 @@ import {
   GET_USER_LOGIN_LOADING,
 } from "../types";
 
-import { sigin } from "../../actions";
+import { sigin, signup } from "../../actions";
 
 export const userLoginLoading = (): UserLoginLoading => ({
   type: GET_USER_LOGIN_LOADING,
@@ -21,8 +21,24 @@ export const logUserIn = (user: User): ThunkResult<void> => {
   return async (dispatch) => {
     dispatch(userLoginLoading());
     try {
-      const newUser: User = await sigin(user);
-      dispatch(userLoginSuccess(newUser));
+      const newUser: any = await sigin(user);
+      const { token } = newUser.user;
+      console.log(token);
+      localStorage.setItem("token", token);
+      dispatch(userLoginSuccess({ token }));
+    } catch {
+      dispatch(userLoginFail(true));
+    }
+  };
+};
+
+export const signUpUser = (user: User): ThunkResult<void> => {
+  return async (dispatch) => {
+    dispatch(userLoginLoading());
+    try {
+      const newUser: any = await signup(user);
+      const { username, levels } = newUser.result;
+      dispatch(userLoginSuccess({ username, levels }));
     } catch {
       dispatch(userLoginFail(true));
     }

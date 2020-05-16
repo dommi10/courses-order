@@ -13,52 +13,87 @@ import {
 import validator from "validator";
 
 interface Props {
-  onFinish: (values: any) => void;
+  onSubmit: (values: any) => void;
+}
+
+interface ErrorsType {
+  email?: string;
+  passwords?: string;
 }
 
 interface StateType {
-  emailError?: string;
-  passwordError?: string;
-  email?: string;
-  password?: string;
+  email: string;
+  password: string;
+  errors?: ErrorsType;
 }
 
-const LoginForm: React.FC<Props> = React.memo(({ onFinish }) => {
-  const initialState: StateType = {};
+const LoginForm: React.FC<Props> = React.memo(({ onSubmit }) => {
+  const initialState: StateType = { email: "", password: "" };
   const [state, setState] = React.useState<StateType>(initialState);
 
   const handleChange = (e: React.ChangeEvent, data: InputOnChangeData) => {
-    console.log(state);
     validateData(data);
   };
   const validateData = (data: InputOnChangeData) => {
-    const { value } = data;
-    if (data.name === "email") {
-      if (validator.isEmail(data.value))
-        setState({ ...state, email: value, emailError: "" });
+    const { name, value } = data;
+    if (name === "email") {
+      if (validator.isEmail(value))
+        setState({
+          ...state,
+          email: value,
+          errors: { ...state.errors, email: "" },
+        });
       else {
-        setState({ ...state, emailError: "Please enter a correct email" });
+        setState({
+          ...state,
+          email: value,
+          errors: { ...state.errors, email: "Please enter a correct email" },
+        });
+      }
+    } else if (name === "password") {
+      if (validator.isLength(value, { min: 4 }))
+        setState({
+          ...state,
+          password: value,
+          errors: { ...state.errors, passwords: "" },
+        });
+      else {
+        setState({
+          ...state,
+          password: value,
+          errors: { ...state.errors, passwords: "short password" },
+        });
       }
     }
   };
 
+  const isValid = (values: ErrorsType): boolean => {
+    if (
+      validator.isEmpty(values?.email ?? "") &&
+      validator.isEmpty(values?.passwords ?? "")
+    )
+      return true;
+    return false;
+  };
+
   const handleSubmit = (e: React.FormEvent, data: FormProps) => {
-    console.log(state);
+    if (isValid(state?.errors ?? {})) onSubmit(state);
+    else setState({ ...state });
   };
 
   return (
     <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 400 }}>
-        <Header as="h2" color="blue" textAlign="center">
-          Log-in to your account
+        <Header as="h3" color="blue" textAlign="center">
+          C S Sign In
         </Header>
         <Form size="small" onSubmit={handleSubmit}>
           <Segment stacked>
             <Form.Input
               error={
-                state.emailError
+                state?.errors?.email
                   ? {
-                      content: state.emailError,
+                      content: state?.errors?.email,
                       pointing: "below",
                     }
                   : null
@@ -75,12 +110,13 @@ const LoginForm: React.FC<Props> = React.memo(({ onFinish }) => {
               fluid
               required
               error={
-                state.passwordError
+                state?.errors?.passwords
                   ? {
-                      content: state.passwordError,
+                      content: state?.errors?.passwords,
                     }
                   : null
               }
+              onChange={handleChange}
               icon="lock"
               iconPosition="left"
               name="password"

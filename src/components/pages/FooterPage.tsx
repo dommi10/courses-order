@@ -1,14 +1,16 @@
 import * as React from "react";
-import { Message } from "semantic-ui-react";
+import { Header } from "semantic-ui-react";
 
 const FooterPage: React.FC = () => {
   return (
-    <Message style={{ textAlign: "center" }}>
-      Courses Subscription ©{new Date().getFullYear()}{" "}
-      <a target="new" href={"https://twitter.com/BuhendwaDoms"}>
-        by Dom's Buhendwa
-      </a>
-    </Message>
+    <footer>
+      <Header as='h5' style={{ textAlign: "center" }}>
+        Courses Subscription ©{new Date().getFullYear()}{" "}
+        <a target="new" href={"https://twitter.com/BuhendwaDoms"}>
+          by Dom's Buhendwa
+        </a>
+      </Header>
+    </footer>
   );
 };
 export default FooterPage;

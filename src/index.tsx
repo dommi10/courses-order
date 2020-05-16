@@ -5,13 +5,21 @@ import thunkMiddleware from "redux-thunk";
 import { Provider } from "react-redux";
 import { rootReducer } from "./store";
 import App from "./App";
-import "semantic-ui-css/semantic.min.css"
+import "semantic-ui-css/semantic.min.css";
 import * as serviceWorker from "./serviceWorker";
-
+import setAuthorizationHeader from "./utils/setAuthorizationHeader";
+import { userLoginSuccess } from "./store/actions";
 const store = configureStore({
   reducer: rootReducer,
   middleware: [thunkMiddleware],
 });
+if (localStorage.token) {
+  const user = {
+    token: localStorage.token,
+  };
+  setAuthorizationHeader(localStorage.token);
+  store.dispatch(userLoginSuccess(user));
+}
 
 ReactDOM.render(
   <Provider store={store}>

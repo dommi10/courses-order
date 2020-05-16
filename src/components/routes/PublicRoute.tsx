@@ -12,7 +12,7 @@ const PublicRoute: React.ComponentType<any> = ({
     <Route
       {...rest}
       render={(props) =>
-        !data?.username ? (
+        !data?.token ? (
           <Component {...props} />
         ) : (
           <Redirect
