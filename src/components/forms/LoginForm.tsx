@@ -49,10 +49,10 @@ const LoginForm: React.FC<Props> = React.memo(({ onFinish }) => {
   return (
     <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 400 }}>
-        <Header as="h1" color="blue" textAlign="center">
-          CS
+        <Header as="h4" color="blue" textAlign="center">
+          Courses Subscriptions
         </Header>
-        <Header as="h2" color="blue" textAlign="center">
+        <Header as="h3" color="blue" textAlign="center">
           Log-in to your account
         </Header>
         <Form size="small" onSubmit={handleSubmit}>
