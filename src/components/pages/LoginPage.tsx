@@ -17,7 +17,7 @@ const LoginPage: React.FC = React.memo(() => {
     );
   };
 
-  return <LoginForm onFinish={onFinish} />;
+  return { isLoading } && <LoginForm onFinish={onFinish} />;
 });
 
 export default LoginPage;
