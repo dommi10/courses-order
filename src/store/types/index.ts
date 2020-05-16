@@ -12,6 +12,7 @@ export interface User {
   username?: String;
   passwords?: String;
   levels?: number;
+  token?: string;
 }
 
 export interface Token {
