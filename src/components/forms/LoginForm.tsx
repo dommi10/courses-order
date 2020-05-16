@@ -49,6 +49,9 @@ const LoginForm: React.FC<Props> = React.memo(({ onFinish }) => {
   return (
     <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 400 }}>
+        <Header as="h1" color="blue" textAlign="center">
+          CS
+        </Header>
         <Header as="h2" color="blue" textAlign="center">
           Log-in to your account
         </Header>
