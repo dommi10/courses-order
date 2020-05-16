@@ -11,7 +11,7 @@ import {
   GET_USER_LOGIN_LOADING,
 } from "../types";
 
-import { sigin } from "../../actions";
+import { sigin, signup } from "../../actions";
 
 export const userLoginLoading = (): UserLoginLoading => ({
   type: GET_USER_LOGIN_LOADING,
@@ -22,6 +22,19 @@ export const logUserIn = (user: User): ThunkResult<void> => {
     dispatch(userLoginLoading());
     try {
       const newUser: User = await sigin(user);
+      dispatch(userLoginSuccess(newUser));
+    } catch {
+      dispatch(userLoginFail(true));
+    }
+  };
+};
+
+export const signUpUser = (user: User): ThunkResult<void> => {
+  return async (dispatch) => {
+    dispatch(userLoginLoading());
+    try {
+      const newUser: User = await signup(user);
+      console.log(newUser);
       dispatch(userLoginSuccess(newUser));
     } catch {
       dispatch(userLoginFail(true));
