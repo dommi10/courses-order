@@ -116,6 +116,7 @@ const LoginForm: React.FC<Props> = React.memo(({ onSubmit }) => {
                     }
                   : null
               }
+              onChange={handleChange}
               icon="lock"
               iconPosition="left"
               name="password"

@@ -21,9 +21,11 @@ export const logUserIn = (user: User): ThunkResult<void> => {
   return async (dispatch) => {
     dispatch(userLoginLoading());
     try {
-      const newUser: User = await sigin(user);
-      console.log(newUser);
-      dispatch(userLoginSuccess(newUser));
+      const newUser: any = await sigin(user);
+      const { token } = newUser.user;
+      console.log(token);
+      localStorage.setItem("token", `Bear ${token}`);
+      dispatch(userLoginSuccess({ token }));
     } catch {
       dispatch(userLoginFail(true));
     }
