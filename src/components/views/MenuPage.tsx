@@ -1,5 +1,7 @@
 import * as React from "react";
 import { Menu, MenuItemProps, Input, Button } from "semantic-ui-react";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../store/actions";
 
 interface StateType {
   activeItem: String;
@@ -15,7 +17,12 @@ const MenuPage: React.FC = React.memo(() => {
     const { name } = data;
     setState({ activeItem: name ?? "" });
   };
-  const handleLogOut = () => {};
+
+  const dispatch = useDispatch<any>();
+
+  const handleLogOut = () => {
+    dispatch(logoutUser());
+  };
   return (
     <header>
       <nav>

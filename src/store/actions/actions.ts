@@ -49,8 +49,9 @@ export const logoutUser = (): ThunkResult<void> => {
   return async (dispatch) => {
     dispatch(userLoginLoading());
     try {
-      localStorage.clear();
-      dispatch(logUserOut);
+      // localStorage.clear();
+      await Promise.resolve(localStorage.clear());
+      dispatch(logUserOut());
     } catch {
       dispatch(userLoginFail(true));
     }
