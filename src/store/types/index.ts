@@ -11,6 +11,7 @@ export const GET_USER_LOGIN_LOADING = "GET_GET_USER_LOGIN_LOADING";
 export interface User {
   username?: String;
   passwords?: String;
+  niveau?: number;
 }
 
 export interface Token {
