@@ -45,6 +45,18 @@ export const signUpUser = (user: User): ThunkResult<void> => {
   };
 };
 
+export const logoutUser = (): ThunkResult<void> => {
+  return async (dispatch) => {
+    dispatch(userLoginLoading());
+    try {
+      localStorage.clear();
+      dispatch(logUserOut);
+    } catch {
+      dispatch(userLoginFail(true));
+    }
+  };
+};
+
 export const logUserOut = (): UserLogout => ({
   type: GET_USER_LOGOUT,
 });
