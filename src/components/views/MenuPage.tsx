@@ -1,12 +1,12 @@
 import * as React from "react";
-import { Menu, MenuItemProps, Input } from "semantic-ui-react";
+import { Menu, MenuItemProps, Input, Button } from "semantic-ui-react";
 
 interface StateType {
   activeItem: String;
 }
 
 const MenuPage: React.FC = React.memo(() => {
-  const initialState: StateType = { activeItem: "home" };
+  const initialState: StateType = { activeItem: "CS" };
   const [state, setState] = React.useState<StateType>(initialState);
   const handleItemClick = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
@@ -15,18 +15,20 @@ const MenuPage: React.FC = React.memo(() => {
     const { name } = data;
     setState({ activeItem: name ?? "" });
   };
+  const handleLogOut = () => {};
   return (
     <header>
       <nav>
-        <Menu secondary>
+        <Menu secondary stackable style={{ padding: "1em 2em " }}>
           <Menu.Item
-            name="home"
-            active={state.activeItem === "home"}
+            name="CS"
+            color="blue"
+            active={state.activeItem === "CS"}
             onClick={handleItemClick}
           />
           <Menu.Item
-            name="messages"
-            active={state.activeItem === "messages"}
+            name="my courses"
+            active={state.activeItem === "my courses"}
             onClick={handleItemClick}
           />
           <Menu.Item
@@ -38,11 +40,11 @@ const MenuPage: React.FC = React.memo(() => {
             <Menu.Item>
               <Input icon="search" placeholder="Search..." />
             </Menu.Item>
-            <Menu.Item
-              name="logout"
-              active={state.activeItem === "logout"}
-              onClick={handleItemClick}
-            />
+            <Menu.Item>
+              <Button primary onClick={handleLogOut}>
+                Logout
+              </Button>
+            </Menu.Item>
           </Menu.Menu>
         </Menu>
       </nav>
