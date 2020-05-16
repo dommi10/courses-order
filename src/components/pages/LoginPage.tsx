@@ -8,7 +8,7 @@ const LoginPage: React.FC = React.memo(() => {
   const { isLoading } = useSelector((state: StateType) => state.user);
   const dispacth = useDispatch<any>();
 
-  const onFinish = async (values: any) => {
+  const onSubmit = async (values: any) => {
     dispacth(
       logUserIn({
         username: values.username,
@@ -17,7 +17,7 @@ const LoginPage: React.FC = React.memo(() => {
     );
   };
 
-  return { isLoading } && <LoginForm onFinish={onFinish} />;
+  return { isLoading } && <LoginForm onSubmit={onSubmit} />;
 });
 
 export default LoginPage;
