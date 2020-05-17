@@ -23,7 +23,6 @@ export const logUserIn = (user: User): ThunkResult<void> => {
     try {
       const newUser: any = await sigin(user);
       const { token } = newUser.user;
-      console.log(token);
       localStorage.setItem("token", token);
       dispatch(userLoginSuccess({ token }));
     } catch {
@@ -49,7 +48,6 @@ export const logoutUser = (): ThunkResult<void> => {
   return async (dispatch) => {
     dispatch(userLoginLoading());
     try {
-      // localStorage.clear();
       await Promise.resolve(localStorage.clear());
       dispatch(logUserOut());
     } catch {
