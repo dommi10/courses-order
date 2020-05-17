@@ -9,6 +9,7 @@ import "semantic-ui-css/semantic.min.css";
 import * as serviceWorker from "./serviceWorker";
 import setAuthorizationHeader from "./utils/setAuthorizationHeader";
 import { userLoginSuccess } from "./store/actions";
+
 const store = configureStore({
   reducer: rootReducer,
   middleware: [thunkMiddleware],
