@@ -4,7 +4,7 @@ import { User, Options } from "../store/types";
 export const fetchData = (options: Options) => {
   const coursesPromise = fetchCourses(options);
   return {
-    user: wrapPromise(coursesPromise),
+    courses: wrapPromise(coursesPromise),
   };
 };
 
