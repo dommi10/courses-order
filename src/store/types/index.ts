@@ -19,6 +19,12 @@ export interface Token {
   token: String;
 }
 
+export interface Options {
+  limit: number;
+  offset: number;
+  order: Array<Array<String>>;
+}
+
 export interface Course {
   id: String;
   title: String;
