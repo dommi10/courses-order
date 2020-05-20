@@ -19,11 +19,19 @@ export interface Token {
   token: String;
 }
 
+export interface Options {
+  limit: number;
+  offset: number;
+  order?: Array<Array<String>>;
+}
+
 export interface Course {
-  id: String;
+  id: string;
   title: String;
   dates: String;
-  price: Number;
+  prix: Number;
+  deleted?: number;
+  description?: String;
 }
 
 export interface Subscription {

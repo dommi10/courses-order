@@ -22,11 +22,13 @@ if (localStorage.token) {
   store.dispatch(userLoginSuccess(user));
 }
 
+const root = document.getElementById("root") as HTMLElement;
+
 ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById("root")
+  root
 );
 
 // If you want your app to work offline and load faster, you can change
