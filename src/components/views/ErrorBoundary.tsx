@@ -1,17 +1,17 @@
 import * as React from "react";
 
 interface Props {
-  fallback: React.ComponentType;
+  fallback: any;
 }
 
 interface StateType {
-  hasError: false;
+  hasError: boolean;
   error: any;
 }
 
 export default class ErrorBoundary extends React.Component<Props> {
   state: StateType = { hasError: false, error: null };
-  static getDerivedStateFromError(error:any) {
+  static getDerivedStateFromError(error: any) {
     return {
       hasError: true,
       error,

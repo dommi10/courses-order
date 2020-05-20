@@ -14,6 +14,7 @@ const wrapPromise = (promise: Promise<any>) => {
   //Store result
   let result: any;
   //Wait for promise
+
   let suspender = promise.then(
     (res) => {
       status = "success";
@@ -31,7 +32,7 @@ const wrapPromise = (promise: Promise<any>) => {
         throw suspender;
       } else if (status === "error") {
         throw result;
-      } else {
+      } else if (status === "success") {
         return result;
       }
     },
@@ -50,9 +51,14 @@ export const signup = (user: User): Promise<User> => {
 
 //fetch courses
 export const fetchCourses = (option: Options) => {
+  console.log("fectch courses....");
+  const token = `Bearer ${localStorage.getItem("token")}`;
   return axios
     .get("/api/courses", {
       data: option,
+      headers: {
+        Authorization: token,
+      },
     })
     .then((response) => response.data)
     .catch((err) => console.log(err));

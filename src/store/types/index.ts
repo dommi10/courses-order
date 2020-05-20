@@ -26,11 +26,12 @@ export interface Options {
 }
 
 export interface Course {
-  id: String;
+  id: string;
   title: String;
   dates: String;
   prix: Number;
   deleted?: number;
+  description?: String;
 }
 
 export interface Subscription {
