@@ -22,14 +22,15 @@ export interface Token {
 export interface Options {
   limit: number;
   offset: number;
-  order: Array<Array<String>>;
+  order?: Array<Array<String>>;
 }
 
 export interface Course {
   id: String;
   title: String;
   dates: String;
-  price: Number;
+  prix: Number;
+  deleted?: number;
 }
 
 export interface Subscription {
