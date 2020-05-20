@@ -16,7 +16,7 @@ const HomePage: React.FC = () => {
   return (
     <div>
       <MenuPage />
-      <Container>
+      <Container style={{ padding: "3% 0 0 0" }}>
         <Grid>
           <ErrorBoundary fallback={<h2>Erreur</h2>}>
             <React.Suspense fallback={<LoaderPage />}>

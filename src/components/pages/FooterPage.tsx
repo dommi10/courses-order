@@ -8,10 +8,7 @@ const FooterPage: React.FC = () => {
         as="h5"
         style={{
           textAlign: "center",
-          position: "fixed",
-          left: 0,
-          bottom: 0,
-          width: "100%",
+          padding:"3% 0% "
         }}
       >
         Courses Subscription ©{new Date().getFullYear()}{" "}
