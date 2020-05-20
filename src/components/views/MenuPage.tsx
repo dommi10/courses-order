@@ -1,5 +1,12 @@
 import * as React from "react";
-import { Menu, MenuItemProps, Input, Button } from "semantic-ui-react";
+import {
+  Menu,
+  MenuItemProps,
+  Input,
+  Button,
+  Icon,
+  Label,
+} from "semantic-ui-react";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../store/actions";
 
@@ -46,6 +53,13 @@ const MenuPage: React.FC = React.memo(() => {
           <Menu.Menu position="right">
             <Menu.Item>
               <Input icon="search" placeholder="Search..." />
+            </Menu.Item>
+            <Menu.Item as="a">
+              <Icon name="alarm" />
+              Panier
+              <Label color="red" floating>
+                {0}
+              </Label>
             </Menu.Item>
             <Menu.Item>
               <Button primary onClick={handleLogOut}>
