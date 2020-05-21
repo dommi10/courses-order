@@ -10,6 +10,7 @@ export default function reducer(
 ): CardState {
   switch (action.type) {
     case GET_ADD_TO_CARD:
+      if (state.data?.indexOf(action.playload) === 0) return state;
       state.data?.push(action.playload);
       const data = state.data?.slice(0);
       return { ...state, data };

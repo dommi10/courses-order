@@ -1,13 +1,24 @@
 import * as React from "react";
 import { Card, Image, Icon, Grid, Header } from "semantic-ui-react";
+import { useDispatch } from "react-redux";
 import { Course } from "../../store/types";
+import { addToCard } from "../../store/actions";
 import CourseItem from "./CourseItem";
 
 interface Props {
   course: Course;
 }
+
 const CardPage: React.FC<Props> = React.memo(({ course }) => {
   const [open, setOpen] = React.useState<boolean>(false);
+
+  const dispatch = useDispatch<any>();
+
+  const add = () => {
+    dispatch(addToCard(course));
+    setOpen(false);
+  };
+
   const handleViewClick = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
   ) => {
@@ -48,7 +59,12 @@ const CardPage: React.FC<Props> = React.memo(({ course }) => {
           </a>
         </Card.Content>
       </Card>
-      <CourseItem course={course} open={open} onClose={() => setOpen(false)} />
+      <CourseItem
+        course={course}
+        open={open}
+        onClose={() => setOpen(false)}
+        onAdd={add}
+      />
     </div>
   );
 });

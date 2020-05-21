@@ -87,6 +87,7 @@ export interface CardState {
 
 export interface StateType {
   user: UserState;
+  card: CardState;
 }
 
 export type UserActionType =

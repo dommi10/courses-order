@@ -7,16 +7,19 @@ import {
   Icon,
   Label,
 } from "semantic-ui-react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../store/actions";
+import { StateType } from "../../store/types";
 
-interface StateType {
+interface StateTypes {
   activeItem: String;
 }
 
 const MenuPage: React.FC = React.memo(() => {
-  const initialState: StateType = { activeItem: "CS" };
-  const [state, setState] = React.useState<StateType>(initialState);
+  const initialState: StateTypes = { activeItem: "CS" };
+  const [state, setState] = React.useState<StateTypes>(initialState);
+  const { data } = useSelector((state: StateType) => state.card);
+
   const handleItemClick = (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     data: MenuItemProps
@@ -58,7 +61,7 @@ const MenuPage: React.FC = React.memo(() => {
               <Icon name="alarm" />
               Panier
               <Label color="red" floating>
-                {0}
+                {data?.length}
               </Label>
             </Menu.Item>
             <Menu.Item>
