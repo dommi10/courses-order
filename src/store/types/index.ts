@@ -30,7 +30,7 @@ export interface Course {
   id: string;
   title: String;
   dates: String;
-  prix: Number;
+  prix: number;
   deleted?: number;
   description?: String;
 }
