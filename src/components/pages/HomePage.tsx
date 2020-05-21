@@ -30,9 +30,7 @@ const HomePage: React.FC = () => {
 };
 
 const CoursesList = () => {
-  console.log("inded");
   const courses = ressource.courses.read();
-  console.log(courses);
   if (courses)
     return courses.map((course: Course) => (
       <Grid.Column key={course.id} mobile={16} tablet={8} computer={4}>
