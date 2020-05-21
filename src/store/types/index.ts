@@ -7,6 +7,7 @@ export const SUBSCRIB_COURSE = "SUBSCRIB_COURSE";
 export const GET_USER_LOGIN_SUCCESS = "GET_USER_LOGIN_SUCCESS";
 export const GET_USER_LOGIN_ERROR = "GET_USER_LOGIN_ERROR";
 export const GET_USER_LOGIN_LOADING = "GET_GET_USER_LOGIN_LOADING";
+export const GET_ADD_TO_CARD = "GET_ADD_TO_CARD";
 
 export interface User {
   username?: String;
@@ -29,7 +30,7 @@ export interface Course {
   id: string;
   title: String;
   dates: String;
-  prix: Number;
+  prix: number;
   deleted?: number;
   description?: String;
 }
@@ -38,6 +39,11 @@ export interface Subscription {
   user: User;
   course: Course;
   dates: String;
+}
+
+export interface AddToCard {
+  type: typeof GET_ADD_TO_CARD;
+  playload: Course;
 }
 
 export interface Login {
@@ -75,8 +81,13 @@ export interface UserState {
   isLoading: boolean;
 }
 
+export interface CardState {
+  data?: Course[];
+}
+
 export interface StateType {
   user: UserState;
+  card: CardState;
 }
 
 export type UserActionType =
@@ -84,6 +95,8 @@ export type UserActionType =
   | UserLoginError
   | UserLoginLoading
   | UserLoginSuccess;
+
+export type CardActionType = AddToCard;
 
 export interface SubscriptionSate {
   courses: Subscription[];

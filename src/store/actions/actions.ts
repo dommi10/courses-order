@@ -9,12 +9,20 @@ import {
   UserLoginLoading,
   ThunkResult,
   GET_USER_LOGIN_LOADING,
+  GET_ADD_TO_CARD,
+  AddToCard,
+  Course,
 } from "../types";
 
 import { sigin, signup } from "../../actions";
 
 export const userLoginLoading = (): UserLoginLoading => ({
   type: GET_USER_LOGIN_LOADING,
+});
+
+export const addToCard = (course: Course): AddToCard => ({
+  type: GET_ADD_TO_CARD,
+  playload: course,
 });
 
 export const logUserIn = (user: User): ThunkResult<void> => {
