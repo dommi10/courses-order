@@ -6,6 +6,8 @@ import {
   Feed,
   Grid,
   Menu,
+  Header,
+  Label,
 } from "semantic-ui-react";
 import { useSelector } from "react-redux";
 import { StateType } from "../../store/types";
@@ -27,7 +29,14 @@ const Shop: React.FC<Props> = ({ open, onClose }) => {
             <Grid.Column width="1">
               <Icon color="red" name="shopping cart" />
             </Grid.Column>
-            <Grid.Column width="10">Panier</Grid.Column>
+            <Grid.Column width="10">
+              <Menu.Item as="a">
+                Panier{" "}
+                <Label size="small" color="red">
+                  {data?.length}
+                </Label>
+              </Menu.Item>
+            </Grid.Column>
             <Grid.Column floated="right" width="2">
               <Menu.Item as="a" onClick={onClose}>
                 <Icon name="close" color="red" />
@@ -54,13 +63,18 @@ const Shop: React.FC<Props> = ({ open, onClose }) => {
         <Card.Content>
           {data && data?.length > 0 ? (
             <Grid>
-              <Grid.Column floated="left" width="8">
-                <h5>Total</h5>
+              <Grid.Column width="3">
+                <Header as="h5">Total</Header>
               </Grid.Column>
-              <Grid.Column floated="right" width="8">
-                <h5>
-                  USD {data?.reduce((prev, course) => prev + course.prix, 0)}
-                </h5>
+              <Grid.Column floated="right" width="13">
+                <Header as="h5" color="green">
+                  USD{" "}
+                  {Number.parseFloat(
+                    data
+                      ?.reduce((prev, course) => prev + course.prix, 0)
+                      .toPrecision(3)
+                  ).toPrecision(3)}
+                </Header>
               </Grid.Column>
             </Grid>
           ) : (
