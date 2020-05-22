@@ -10,12 +10,18 @@ import {
 import MenuPage from "../views/MenuPage";
 import { useSelector } from "react-redux";
 import { StateType } from "../../store/types";
+import PaymentPage from "../payment/ModalPayment";
 
 interface Props {}
 
 const CartPage: React.FC<Props> = React.memo(() => {
   const { data } = useSelector((state: StateType) => state.card);
+  const [open, setOpen] = React.useState(false);
 
+  const handleClick = () => setOpen(!open);
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <div>
       <MenuPage />
@@ -83,7 +89,7 @@ const CartPage: React.FC<Props> = React.memo(() => {
                     <Table.HeaderCell />
                     <Table.HeaderCell />
                     <Table.HeaderCell>
-                      <Button primary>
+                      <Button primary onClick={handleClick}>
                         <Icon name="credit card" />
                         Pay
                       </Button>
@@ -95,7 +101,9 @@ const CartPage: React.FC<Props> = React.memo(() => {
           </Grid.Row>
         </Grid>
       </Container>
+      <PaymentPage onClose={handleClose} open={open} />
     </div>
   );
 });
+
 export default CartPage;
