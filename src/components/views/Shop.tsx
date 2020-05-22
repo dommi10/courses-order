@@ -59,7 +59,7 @@ const Shop: React.FC<Props> = ({ open, onClose }) => {
               </Grid.Column>
               <Grid.Column floated="right" width="8">
                 <h5>
-                  $ {data?.reduce((prev, course) => prev + course.prix, 0)}
+                  USD {data?.reduce((prev, course) => prev + course.prix, 0)}
                 </h5>
               </Grid.Column>
             </Grid>
