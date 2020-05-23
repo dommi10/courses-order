@@ -36,6 +36,7 @@ const CheckoutForm: React.FC<Props> = ({ onClose, onLoading }) => {
     }
     setLoading(true);
     onLoading(true);
+    setError("");
     setHasError(false);
     setSuccess(false);
 
@@ -45,7 +46,12 @@ const CheckoutForm: React.FC<Props> = ({ onClose, onLoading }) => {
     const response = await getSecretKey();
     if (response.status !== 200) {
       // Show error to your customer.
-      console.log(response.data.error);
+      setLoading(false);
+      setHasError(true);
+      onLoading(false);
+      // Show error to your customer (e.g., insufficient funds)
+      setError(response.data.error);
+      setTitle("Your payment was an error");
     } else {
       // Send the token to your server.
       // This function does not exist yet; we will define it in the next step.
@@ -65,7 +71,6 @@ const CheckoutForm: React.FC<Props> = ({ onClose, onLoading }) => {
         setHasError(true);
         onLoading(false);
         // Show error to your customer (e.g., insufficient funds)
-        console.log(result.error.message);
         setError(result.error.message);
         setTitle("Your payment was an error");
       } else {
@@ -77,10 +82,9 @@ const CheckoutForm: React.FC<Props> = ({ onClose, onLoading }) => {
           // payment_intent.succeeded event that handles any business critical
           // post-payment actions.
           //save all subscrition to
-
+          setSuccess(true);
           if (data) {
             for (const course of data) {
-              console.log("data in");
               const response = await subscribeToACourse(course);
 
               if (response.status === 200) {
@@ -92,8 +96,6 @@ const CheckoutForm: React.FC<Props> = ({ onClose, onLoading }) => {
                 setHasError(true);
               }
             }
-            console.log("data out");
-
             onLoading(false);
             setLoading(false);
             // if (!hasError) onClose();
@@ -105,7 +107,9 @@ const CheckoutForm: React.FC<Props> = ({ onClose, onLoading }) => {
 
   return (
     <div>
-      {hasError && <Message error header={title} content={error} />}
+      {hasError && error.length > 0 && (
+        <Message error header={title} content={error} />
+      )}
       {!success ? (
         <Form onSubmit={handleSubmit} loading={loading}>
           <Form.Field>
@@ -118,15 +122,17 @@ const CheckoutForm: React.FC<Props> = ({ onClose, onLoading }) => {
           </Button>
         </Form>
       ) : (
-        <Grid container textAlign="center">
-          <Grid.Column mobile={16} tablet={8} computer={4} />
-          <Grid.Column mobile={16} tablet={16} computer={8}>
-            <Button color="green" onClick={onClose}>
-              <Icon name="check circle" />
-              Payment Success
-            </Button>
-          </Grid.Column>
-        </Grid>
+        <Form loading={loading} onSubmit={onClose}>
+          <Grid container textAlign="center">
+            <Grid.Column mobile={16} tablet={8} computer={1} />
+            <Grid.Column mobile={16} tablet={16} computer={8}>
+              <Button color="green">
+                <Icon name="check circle" />
+                Payment Success
+              </Button>
+            </Grid.Column>
+          </Grid>
+        </Form>
       )}
     </div>
   );

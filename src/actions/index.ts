@@ -97,6 +97,7 @@ export const getSecretKey = () => {
     })
     .then((response) => response)
     .catch((err) => {
+      console.log(err.response);
       return err.response;
     });
 };

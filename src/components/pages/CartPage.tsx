@@ -33,16 +33,15 @@ const CartPage: React.FC<Props> = React.memo(() => {
           <Grid.Row>
             {data?.length === 0 ? (
               <Container>
-                <Grid>
-                  <Grid.Column width="6" />
-                  <Grid.Column width="10">
+                <div className="ui two column doubling center aligned page grid">
+                  <div className="column twelve wide">
                     <Header as="h3" color="orange">
                       {" "}
                       <Icon name="warning circle" />
                       Nothing to Show
                     </Header>
-                  </Grid.Column>
-                </Grid>
+                  </div>
+                </div>
               </Container>
             ) : (
               <Table size="small" unstackable>
