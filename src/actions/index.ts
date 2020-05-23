@@ -1,5 +1,5 @@
 import axios from "axios";
-import { User, Options } from "../store/types";
+import { User, Options, Course } from "../store/types";
 
 export const fetchData = (options: Options) => {
   const coursesPromise = fetchCourses(options);
@@ -62,4 +62,23 @@ export const fetchCourses = (option: Options) => {
     })
     .then((response) => response.data)
     .catch((err) => console.log(err));
+};
+
+//susbsribe
+export const subscribeToACourse = (course: Course) => {
+  console.log("subscribe To Course");
+  const token = `Bearer ${localStorage.getItem("token")}`;
+  return axios
+    .post("/api/subscriptions/add", {
+      course: course.id,
+      prix: course.prix,
+      dates: course.dates,
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((response) => response)
+    .catch((err) => {
+      return err.response;
+    });
 };

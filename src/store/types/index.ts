@@ -8,6 +8,7 @@ export const GET_USER_LOGIN_SUCCESS = "GET_USER_LOGIN_SUCCESS";
 export const GET_USER_LOGIN_ERROR = "GET_USER_LOGIN_ERROR";
 export const GET_USER_LOGIN_LOADING = "GET_GET_USER_LOGIN_LOADING";
 export const GET_ADD_TO_CARD = "GET_ADD_TO_CARD";
+export const GET_DELETE_TO_CARD = "GET_DELETE_TO_CARD";
 
 export interface User {
   username?: String;
@@ -43,6 +44,11 @@ export interface Subscription {
 
 export interface AddToCard {
   type: typeof GET_ADD_TO_CARD;
+  playload: Course;
+}
+
+export interface DeleteToCard {
+  type: typeof GET_DELETE_TO_CARD;
   playload: Course;
 }
 
@@ -96,7 +102,7 @@ export type UserActionType =
   | UserLoginLoading
   | UserLoginSuccess;
 
-export type CardActionType = AddToCard;
+export type CardActionType = AddToCard | DeleteToCard;
 
 export interface SubscriptionSate {
   courses: Subscription[];

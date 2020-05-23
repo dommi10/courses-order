@@ -12,6 +12,8 @@ import {
   GET_ADD_TO_CARD,
   AddToCard,
   Course,
+  DeleteToCard,
+  GET_DELETE_TO_CARD,
 } from "../types";
 
 import { sigin, signup } from "../../actions";
@@ -22,6 +24,10 @@ export const userLoginLoading = (): UserLoginLoading => ({
 
 export const addToCard = (course: Course): AddToCard => ({
   type: GET_ADD_TO_CARD,
+  playload: course,
+});
+export const deleteToCard = (course: Course): DeleteToCard => ({
+  type: GET_DELETE_TO_CARD,
   playload: course,
 });
 

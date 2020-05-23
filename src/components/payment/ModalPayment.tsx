@@ -1,12 +1,5 @@
 import * as React from "react";
-import {
-  Modal,
-  Icon,
-  GridColumn,
-  GridRow,
-  Grid,
-  Menu,
-} from "semantic-ui-react";
+import { Modal, Icon, GridColumn, Grid, Menu } from "semantic-ui-react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
@@ -22,6 +15,7 @@ interface Props {
 }
 
 const PaymentPage: React.FC<Props> = ({ open, onClose }) => {
+  const [isLoading, setLoading] = React.useState(false);
   return (
     <Modal
       size="tiny"
@@ -34,15 +28,22 @@ const PaymentPage: React.FC<Props> = ({ open, onClose }) => {
         <Grid>
           <GridColumn width="14">Confrim Your Payment </GridColumn>
           <GridColumn width="2">
-            <Menu.Item onClick={onClose}>
-              <Icon name="close" flipped="horizontally" color="blue" link />
-            </Menu.Item>
+            {!isLoading && (
+              <Menu.Item onClick={onClose}>
+                <Icon name="close" flipped="horizontally" color="blue" link />
+              </Menu.Item>
+            )}
           </GridColumn>
         </Grid>
       </Modal.Header>
       <Modal.Content>
         <Elements stripe={stripePromise}>
-          <CheckoutForm />
+          <CheckoutForm
+            onClose={onClose}
+            onLoading={(loading: boolean) => {
+              setLoading(loading);
+            }}
+          />
         </Elements>
       </Modal.Content>
     </Modal>

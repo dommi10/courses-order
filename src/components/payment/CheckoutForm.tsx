@@ -1,16 +1,29 @@
-import React from "react";
+import * as React from "react";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 
 import CardSection from "./CardSelection";
 import axios from "axios";
-import { Form, Button, Message, Icon } from "semantic-ui-react";
+import { Form, Button, Message, Icon, Grid } from "semantic-ui-react";
+import { useSelector, useDispatch } from "react-redux";
+import { StateType } from "../../store/types";
+import { subscribeToACourse } from "../../actions";
+import { deleteToCard } from "../../store/actions";
 
-export default function CheckoutForm() {
+interface Props {
+  onClose: () => void;
+  onLoading: (loading: boolean) => void;
+}
+
+const CheckoutForm: React.FC<Props> = ({ onClose, onLoading }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = React.useState(false);
+  const [success, setSuccess] = React.useState(false);
   const [hasError, setHasError] = React.useState(false);
   const [error, setError] = React.useState("");
+  const [title, setTitle] = React.useState("");
+  const { data } = useSelector((state: StateType) => state.card);
+  const dispacth = useDispatch<any>();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     // We don't want to let default form submission happen here,
@@ -23,7 +36,9 @@ export default function CheckoutForm() {
       return;
     }
     setLoading(true);
+    onLoading(true);
     setHasError(false);
+    setSuccess(false);
 
     const card = elements.getElement(CardElement);
 
@@ -46,12 +61,14 @@ export default function CheckoutForm() {
             },
           },
         });
-      setLoading(false);
       if (result.error) {
+        setLoading(false);
         setHasError(true);
+        onLoading(false);
         // Show error to your customer (e.g., insufficient funds)
         console.log(result.error.message);
         setError(result.error.message);
+        setTitle("Your payment was an error");
       } else {
         // The payment has been processed!
         if (result.paymentIntent.status === "succeeded") {
@@ -60,6 +77,28 @@ export default function CheckoutForm() {
           // execution. Set up a webhook or plugin to listen for the
           // payment_intent.succeeded event that handles any business critical
           // post-payment actions.
+          //save all subscrition to
+
+          if (data) {
+            for (const course of data) {
+              console.log("data in");
+              const response = await subscribeToACourse(course);
+
+              if (response.status === 200) {
+                dispacth(deleteToCard(course));
+              } else {
+                setSuccess(false);
+                setTitle("Your subscription was an error");
+                setError(response.data.error);
+                setHasError(true);
+              }
+            }
+            console.log("data out");
+
+            onLoading(false);
+            setLoading(false);
+            // if (!hasError) onClose();
+          }
         }
       }
     }
@@ -67,19 +106,30 @@ export default function CheckoutForm() {
 
   return (
     <div>
-      {hasError && (
-        <Message error header="Your payment was an error" content={error} />
-      )}
-      <Form onSubmit={handleSubmit} loading={loading}>
-        <Form.Field>
-          <CardSection />
-        </Form.Field>
+      {hasError && <Message error header={title} content={error} />}
+      {!success ? (
+        <Form onSubmit={handleSubmit} loading={loading}>
+          <Form.Field>
+            <CardSection />
+          </Form.Field>
 
-        <Button primary disabled={!stripe}>
-          <Icon name="payment" />
-          Confirm pay
-        </Button>
-      </Form>
+          <Button primary disabled={!stripe}>
+            <Icon name="payment" />
+            Confirm pay
+          </Button>
+        </Form>
+      ) : (
+        <Grid container textAlign="center">
+          <Grid.Column mobile={16} tablet={8} computer={4} />
+          <Grid.Column mobile={16} tablet={16} computer={8}>
+            <Button color="green" onClick={onClose}>
+              <Icon name="check circle" />
+              Payment Success
+            </Button>
+          </Grid.Column>
+        </Grid>
+      )}
     </div>
   );
-}
+};
+export default CheckoutForm;
