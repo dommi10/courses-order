@@ -1,5 +1,6 @@
 import axios from "axios";
-import { User, Options } from "../store/types";
+import { User, Options, Course } from "../store/types";
+const api = process.env.REACT_APP_API_HOST;
 
 export const fetchData = (options: Options) => {
   const coursesPromise = fetchCourses(options);
@@ -40,12 +41,14 @@ const wrapPromise = (promise: Promise<any>) => {
 };
 
 export const sigin = (user: User): Promise<User> => {
-  return axios.post("/api/auth/sign", user).then((response) => response.data);
+  return axios
+    .post(`${api}/api/auth/sign`, user)
+    .then((response) => response.data);
 };
 
 export const signup = (user: User): Promise<User> => {
   return axios
-    .post("/api/auth/signup", { user })
+    .post(`${api}/api/auth/signup`, { user })
     .then((response) => response.data);
 };
 
@@ -54,7 +57,7 @@ export const fetchCourses = (option: Options) => {
   console.log("fectch courses....");
   const token = `Bearer ${localStorage.getItem("token")}`;
   return axios
-    .get("/api/courses", {
+    .get(`${api}/api/courses`, {
       data: option,
       headers: {
         Authorization: token,
@@ -62,4 +65,39 @@ export const fetchCourses = (option: Options) => {
     })
     .then((response) => response.data)
     .catch((err) => console.log(err));
+};
+
+//susbsribe
+export const subscribeToACourse = (course: Course) => {
+  console.log("subscribe To Course");
+  const token = `Bearer ${localStorage.getItem("token")}`;
+  return axios
+    .post(`${api}/api/subscriptions/add`, {
+      course: course.id,
+      prix: course.prix,
+      dates: course.dates,
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((response) => response)
+    .catch((err) => {
+      return err.response;
+    });
+};
+//susbsribe
+export const getSecretKey = () => {
+  console.log("getting secret");
+  const token = `Bearer ${localStorage.getItem("token")}`;
+  return axios
+    .get(`${api}/api/payment/secret`, {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((response) => response)
+    .catch((err) => {
+      console.log(err.response);
+      return err.response;
+    });
 };
