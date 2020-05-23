@@ -2,11 +2,10 @@ import * as React from "react";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 
 import CardSection from "./CardSelection";
-import axios from "axios";
 import { Form, Button, Message, Icon, Grid } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
 import { StateType } from "../../store/types";
-import { subscribeToACourse } from "../../actions";
+import { subscribeToACourse, getSecretKey } from "../../actions";
 import { deleteToCard } from "../../store/actions";
 
 interface Props {
@@ -43,7 +42,7 @@ const CheckoutForm: React.FC<Props> = ({ onClose, onLoading }) => {
     const card = elements.getElement(CardElement);
 
     // if (card) result = await stripe.createToken(card);
-    const response = await axios.get("/api/payment/secret");
+    const response = await getSecretKey();
     if (response.status !== 200) {
       // Show error to your customer.
       console.log(response.data.error);

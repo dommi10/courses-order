@@ -54,6 +54,5 @@
   "devDependencies": {
     "@types/react-redux": "^7.1.8",
     "redux-devtools": "^3.5.0"
-  },
-  "proxy": "https://goma-courses-api.herokuapp.com/"
+  }
 }
